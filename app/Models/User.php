@@ -2,31 +2,47 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
-     * The attributes that are mass assignable.
+     * Le nom de la table dans la base de données.
      *
-     * @var list<string>
+     * @var string
+     */
+    //protected $table = 'WL_users';
+
+    /**
+     * La clé primaire de la table.
+     *
+     * @var string
+     */
+    protected $primaryKey = 'id';
+
+    /**
+     * Les attributs qui peuvent être affectés en masse.
+     *
+     * @var array
      */
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
+        'remember_token',
+        'pseudo',
+        'id_role',
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * Les attributs à masquer lors de la sérialisation.
      *
-     * @var list<string>
+     * @var array
      */
     protected $hidden = [
         'password',
@@ -34,9 +50,9 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * Les attributs à caster.
      *
-     * @return array<string, string>
+     * @return array
      */
     protected function casts(): array
     {
@@ -45,4 +61,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Indique si les timestamps (created_at, updated_at) sont gérés automatiquement.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
 }
