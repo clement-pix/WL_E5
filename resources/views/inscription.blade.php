@@ -10,14 +10,8 @@
 
                 <!-- Champ Nom -->
                 <div class="mb-6">
-                    <label for="nom" class="block text-sm font-medium text-gray-700">Nom</label>
-                    <input type="text" id="nom" name="nom" placeholder="Nom" value="{{ old('nom') }}" class="mt-2 p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                </div>
-                
-                <!-- Champ Prénom -->
-                <div class="mb-6">
-                    <label for="prenom" class="block text-sm font-medium text-gray-700">Prénom</label>
-                    <input type="text" id="prenom" name="prenom" placeholder="Prénom" value="{{ old('prenom') }}" class="mt-2 p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                    <label for="name" class="block text-sm font-medium text-gray-700">Nom</label>
+                    <input type="text" id="name" name="name" placeholder="Nom" value="{{ old('name') }}" class="mt-2 p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
                 
                 <!-- Champ Pseudo -->
@@ -54,8 +48,8 @@
                 <div class="mb-6">
                     <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirmation du mot de passe</label>
                     <input type="password" id="password_confirmation" name="password_confirmation" placeholder="Confirmez votre mot de passe" value="{{ old('password_confirmation') }}" required class="mt-2 p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
-                    @if ($errors->has('motdepasse'))
-                        <p class="text-red-500">{{ $errors->first('motdepasse') }}</p>
+                    @if ($errors->has('password'))
+                        <p class="text-red-500">{{ $errors->first('password') }}</p>
                     @endif
                     @if ($errors->has('password_confirmation'))
                         <p class="text-red-500">{{ $errors->first('password_confirmation') }}</p>

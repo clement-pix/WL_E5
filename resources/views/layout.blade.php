@@ -16,8 +16,24 @@
             <nav>
                 <ul class="flex space-x-4">
                     <li><a href="/" class="hover:text-indigo-300">Accueil</a></li>
-                    <li><a href="/inscription" class="hover:text-indigo-300">inscription</a></li>
-                    <li><a href="/connexion" class="hover:text-indigo-300">Connexion</a></li>
+                    <li><a href="/inscription" class="hover:text-indigo-300">Inscription</a></li>
+
+                    <!-- Afficher l'option de connexion ou le nom de l'utilisateur si connecté -->
+                    @guest
+                        <li><a href="/connexion" class="hover:text-indigo-300">Connexion</a></li>
+                    @endguest
+
+                    @auth
+                        <!-- Afficher le nom ou pseudo de l'utilisateur -->
+                        <li><span class="text-lg">Bonjour, {{ Auth::user()->name }}</span></li> <!-- Remplacez 'name' par 'pseudo' si nécessaire -->
+                        <!-- Option de déconnexion -->
+                        <li>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="text-white hover:text-indigo-300">Déconnexion</button>
+                            </form>
+                        </li>
+                    @endauth
                 </ul>
             </nav>
         </div>
