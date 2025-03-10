@@ -28,8 +28,6 @@ class InscriptionController extends Controller
                 'max:255'],
         ]);
     
-        // Debugging : Voir les données validées
-        \Log::info('Form data validated', $validated);
     
         // Création de l'utilisateur avec email non vérifié
         $utilisateur = User::create([
@@ -42,11 +40,6 @@ class InscriptionController extends Controller
             'id_role' => 1,
         ]);
     
-        // Debugging : Vérifier si l'utilisateur a été créé
-        \Log::info('User created', $utilisateur->toArray());
-    
-        // Envoi de l'email de vérification
-        //$utilisateur->sendEmailVerificationNotification();
     
         // Redirection avec message
         return redirect()->route('login')->with('success', 'Un email de confirmation a été envoyé.');
