@@ -50,6 +50,7 @@
             <p>&copy; 2025 WatchList. Tous droits réservés.</p>
         </div>
     </footer>
-
+    @yield('scripts')
 </body>
 </html>
+

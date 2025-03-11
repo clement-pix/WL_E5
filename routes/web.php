@@ -3,14 +3,15 @@
 use Illuminate\Validation\Rules\Password;   
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
-//use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use App\Http\Controllers\UtilisateursController;
 use App\Http\Controllers\InscriptionController;
 use App\Http\Controllers\ConnexionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\MediaController;
 
-Route::view('/', 'welcome')->name('welcome'); 
+Route::get('/', [MediaController::class, 'index'])->name('welcome');
+
 
 // Inscription et connexion
 Route::get('/inscription', [InscriptionController::class, 'formulaire']);
@@ -28,3 +29,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Liste des utilisateurs
 Route::get('/utilisateur', [UtilisateursController::class, 'liste']);
+
+
+//liste des médias
+//Route::get('/medias', [MediaController::class, 'index']);
+
+Route::get('/media/create', [MediaController::class, 'create'])->name('media.create');
+Route::post('/media/store', [MediaController::class, 'store'])->name('media.store');
