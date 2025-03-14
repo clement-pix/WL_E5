@@ -17,6 +17,7 @@ class InscriptionController extends Controller
         // Validation des données de formulaire
         $validated = $request->validate([
             'name' => ['required', 'min:2', 'max:50'],
+            'firstname' => ['required', 'min:2', 'max:50'],
             'pseudo' => ['required', 'min:2', 'unique:users,pseudo', 'max:50'],
             'email' => ['required', 'email', 'unique:users,email', 'max:50'],
             'email_verif' => ['required', 'email', 'same:email', 'max:50'],
@@ -32,6 +33,7 @@ class InscriptionController extends Controller
         // Création de l'utilisateur avec email non vérifié
         $utilisateur = User::create([
             'name' => $request->name,
+            'firstname' => $request->firstname,
             'pseudo' => $request->pseudo,
             'email' => $request->email,
             'password' => bcrypt($request->password), // Hash du mot de passe

@@ -35,17 +35,32 @@ class MediaController extends Controller
         ]);
 
         // Stocker l'image
-        $path = $request->file('image')->store('public/images'); // Stocke dans storage/app/public/images
+        $path = $request->file('image')->store('images', 'public');  // Stocke dans storage/app/public/images
 
         // Enregistrement du média en base de données
         Media::create([
             'titre' => $request->titre,
             'description' => $request->description,
-            'lien_image' => str_replace('public/', 'storage/', $path), // Transforme le chemin
+            'lien_image' => 'storage/' . $path, // Résultat : storage/images/nom_de_fichier.png
             'date_ajout' => now(),
             'id_categorie' => $request->id_categorie
         ]);
 
         return redirect('/')->with('success', 'Média ajouté avec succès !');
     }
+
+    public function show($id)
+{
+    // Charge le média avec la relation avis
+    $media = Media::with('avis')->findOrFail($id);
+
+    // Vérifie si l'utilisateur connecté a déjà laissé un avis pour ce média
+    $alreadyCommented = false;
+    if (auth()->check()) {
+        $alreadyCommented = $media->avis->where('id', auth()->id())->isNotEmpty();
+    }
+
+    return view('media.show', compact('media', 'alreadyCommented'));
+}
+
 }

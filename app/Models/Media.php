@@ -14,5 +14,12 @@ class Media extends Model
     public $timestamps = false;
 
     protected $fillable = ['titre', 'description', 'lien_image', 'date_ajout', 'id_categorie'];
+
+
+    public function avis()
+    {
+    return $this->hasMany(\App\Models\Avis::class, 'id_media', 'id_media');
+    }
+
 }
 

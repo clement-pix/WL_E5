@@ -14,6 +14,12 @@
                     <input type="text" id="name" name="name" placeholder="Nom" value="{{ old('name') }}" class="mt-2 p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                 </div>
                 
+                <!-- Champ Prénom -->
+                <div class="mb-6">
+                    <label for="firstname" class="block text-sm font-medium text-gray-700">Prénom</label>
+                    <input type="text" id="firstname" name="firstname" placeholder="Prénom" value="{{ old('firstname') }}" class="mt-2 p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+                </div>
+
                 <!-- Champ Pseudo -->
                 <div class="mb-6">
                     <label for="pseudo" class="block text-sm font-medium text-gray-700">Pseudo</label>

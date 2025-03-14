@@ -9,9 +9,9 @@ use App\Http\Controllers\ConnexionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\AvisController;
 
 Route::get('/', [MediaController::class, 'index'])->name('welcome');
-
 
 // Inscription et connexion
 Route::get('/inscription', [InscriptionController::class, 'formulaire']);
@@ -36,3 +36,9 @@ Route::get('/utilisateur', [UtilisateursController::class, 'liste']);
 
 Route::get('/media/create', [MediaController::class, 'create'])->name('media.create');
 Route::post('/media/store', [MediaController::class, 'store'])->name('media.store');
+Route::get('/media/{id}', [MediaController::class, 'show'])->name('media.show');
+
+Route::post('/media/{media}/comment', [AvisController::class, 'store'])->name('comment.store');
+
+Route::get('/avis/{avis}/edit', [AvisController::class, 'edit'])->name('comment.edit');
+Route::put('/avis/{avis}', [AvisController::class, 'update'])->name('comment.update');
