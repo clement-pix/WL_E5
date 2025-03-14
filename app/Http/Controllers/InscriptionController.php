@@ -39,9 +39,8 @@ class InscriptionController extends Controller
             'password' => bcrypt($request->password), // Hash du mot de passe
             'email_verified_at' => null, // Laisser NULL pour forcer la vérification
             'token' => Str::random(60),
-            'id_role' => 1,
+            'id_role' => 2,
         ]);
-    
     
         // Redirection avec message
         return redirect()->route('login')->with('success', 'Un email de confirmation a été envoyé.');

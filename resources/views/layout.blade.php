@@ -28,11 +28,14 @@
                 @endguest
 
                 @auth
-                    <li>
-                        <a href="{{ route('dashboard') }}" class="text-white  hover:text-indigo-300">
-                            Bonjour, {{ Auth::user()->firstname }}
-                        </a>
-                    </li>
+                    <!-- Lien vers un dashboard selon le rôle -->
+                    @if (auth()->user()->id_role == 1)
+                        <li><a href="{{ route('dashboard.superadmin') }}" class="hover:text-indigo-300">Bonjour, {{ auth()->user()->firstname }}</a></li>
+                    @elseif (auth()->user()->id_role == 3)
+                        <li><a href="{{ route('dashboard.membreadmin') }}" class="hover:text-indigo-300">Bonjour, {{ auth()->user()->firstname }}</a></li>
+                    @elseif (auth()->user()->id_role == 2)
+                        <li><a href="{{ route('dashboard.membre') }}" class="hover:text-indigo-300">Bonjour, {{ auth()->user()->firstname }}</a></li>
+                    @endif
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
