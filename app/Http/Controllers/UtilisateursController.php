@@ -30,7 +30,7 @@ class UtilisateursController extends Controller
             'email'     => 'required|email|unique:users,email,' . $user->id,
             'role'      => 'required|integer',
         ]);
-
+//test
         $user->update([
             'name'      => $request->name,
             'firstname' => $request->firstname,
