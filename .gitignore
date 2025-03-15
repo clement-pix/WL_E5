@@ -21,3 +21,7 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+# Ignorer tout dans storage/app/public sauf le dossier images
+/storage/app/public/*
+!/storage/app/public/images
+
