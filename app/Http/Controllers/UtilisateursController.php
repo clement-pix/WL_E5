@@ -24,15 +24,19 @@ class UtilisateursController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'name'      => 'required|string|max:255',
-            'firstname' => 'nullable|string|max:255',
-            'role'      => 'required|string',
+            'name' => 'required|string|max:50',
+            'firstname' => 'required|string|max:50',
+            'pseudo'    => 'required|min:2|unique:users,pseudo,' . $user->id . '|max:50',
+            'email'     => 'required|email|unique:users,email,' . $user->id,
+            'role'      => 'required|integer',
         ]);
 
         $user->update([
             'name'      => $request->name,
             'firstname' => $request->firstname,
-            'role'      => $request->role,
+            'pseudo'    => $request->pseudo,
+            'email'     => $request->email,
+            'id_role'   => $request->role,
         ]);
 
         return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');

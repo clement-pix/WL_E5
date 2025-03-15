@@ -25,13 +25,25 @@
         </div>
 
         <div class="mb-4">
+            <label for="pseudo" class="block text-sm font-medium text-gray-700">Pseudo :</label>
+            <input type="text" name="pseudo" id="pseudo" value="{{ $user->pseudo }}" class="mt-2 p-3 border border-gray-300 rounded-md w-full">
+        </div>
+
+        <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-gray-700">Email :</label>
+            <input type="email" name="email" id="email" value="{{ $user->email }}" class="mt-2 p-3 border border-gray-300 rounded-md w-full">
+        </div>
+
+        <div class="mb-4">
             <label for="role" class="block text-sm font-medium text-gray-700">Rôle :</label>
             <select name="role" id="role" class="mt-2 p-3 border border-gray-300 rounded-md w-full">
-                <option value="superadmin" {{ $user->role === 'superadmin' ? 'selected' : '' }}>Superadmin</option>
-                <option value="membreadmin" {{ $user->role === 'membreadmin' ? 'selected' : '' }}>MembreAdmin</option>
-                <option value="membre" {{ $user->role === 'membre' ? 'selected' : '' }}>Membre</option>
+                <option value="1" {{ $user->id_role == 1 ? 'selected' : '' }}>Superadmin</option>
+                <option value="3" {{ $user->id_role == 3 ? 'selected' : '' }}>MembreAdmin</option>
+                <option value="2" {{ $user->id_role == 2 ? 'selected' : '' }}>Membre</option>
             </select>
         </div>
+
+
 
         <button type="submit" class="block w-full py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700">
             Enregistrer
