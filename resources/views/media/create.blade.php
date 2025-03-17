@@ -23,7 +23,7 @@
 
                 <div class="mb-6">
                     <label for="description" class="block text-sm font-medium text-gray-700">Description :</label>
-                    <textarea name="description" rows="3" class="mt-2 p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
+                    <textarea name="description" required rows="3" class="mt-2 p-3 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></textarea>
                 </div>
 
                 <div class="mb-6">
