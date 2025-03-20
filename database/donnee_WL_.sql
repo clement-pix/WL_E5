@@ -22,15 +22,6 @@ SET time_zone = "+00:00";
 --
 
 --
--- Déchargement des données de la table `WL_avis`
---
-
-INSERT INTO `WL_avis` (`id_media`, `id`, `note`, `commentaire`) VALUES
-(10, 6, 3, 'un film cool'),
-(10, 7, 3, 'ça va, il y a mieux !'),
-(10, 8, 5, '<3');
-
---
 -- Déchargement des données de la table `WL_categorie`
 --
 
@@ -95,6 +86,15 @@ INSERT INTO `WL_users` (`id`, `name`, `firstname`, `email`, `email_verified_at`,
 (7, 'musset', 'clement', 'clement.musset79@gmail.com', NULL, '$2y$12$wz3eTfnzuOY.0awFVoYIruwuCu2li8nyNyiZwvxfrJqTFsQtfLP8e', NULL, '2025-03-10 16:34:03', '2025-03-15 16:44:53', 'clement-pix', 3),
 (8, 'prieur', 'batiste', 'batiste.p@gmail.com', NULL, '$2y$12$EsC0ChFX6sAg0otARab2lO.yiR38jZLDBJmq1RYy3J3W39UnThkNu', NULL, '2025-03-14 09:59:56', '2025-03-14 09:59:56', 'tounet', 2);
 COMMIT;
+
+--
+-- Déchargement des données de la table `WL_avis`
+--
+
+INSERT INTO `WL_avis` (`id_media`, `id`, `note`, `commentaire`) VALUES
+(10, 6, 3, 'un film cool'),
+(10, 7, 3, 'ça va, il y a mieux !'),
+(10, 8, 5, '<3');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
