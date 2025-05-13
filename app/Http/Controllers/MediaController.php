@@ -5,49 +5,77 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Media;
 use App\Models\Categorie;
+use App\Models\Genre;
 
 use Illuminate\Support\Facades\Storage;
 
 class MediaController extends Controller
 {
-    public function index()
+    public function welcome()
     {
-        $medias = Media::all(); // Récupère tous les médias de la table WL_media
-        return view('welcome', compact('medias')); // Envoie les médias à la vue
-    }
-
-    public function create()
-    {
-        $categories = Categorie::all(); // Récupère toutes les catégories
-        return view('media.create', compact('categories'));
+        $medias = Media::all();
+        return view('welcome', compact('medias'));
     }
     
+    public function index()
+{
+    $medias = Media::all();
+    return view('media.index', compact('medias'));
+}
 
 
-    public function store(Request $request)
+    public function create()
+{
+    $categories = Categorie::all();
+    $genres = Genre::all(); 
+
+    return view('media.create', compact('categories', 'genres'));
+}
+
+    public function destroy($id)
     {
-        // Validation des données
-        $request->validate([
-            'titre' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Fichiers images uniquement
-            'id_categorie' => 'required|integer'
-        ]);
+        $media = Media::findOrFail($id);
 
-        // Stocker l'image
-        $path = $request->file('image')->store('images', 'public');  // Stocke dans storage/app/public/images
+        // Supprimer image si nécessaire
+        if ($media->lien_image && \Storage::disk('public')->exists(str_replace('storage/', '', $media->lien_image))) {
+            \Storage::disk('public')->delete(str_replace('storage/', '', $media->lien_image));
+        }
 
-        // Enregistrement du média en base de données
-        Media::create([
-            'titre' => $request->titre,
-            'description' => $request->description,
-            'lien_image' => 'storage/' . $path, // Résultat : storage/images/nom_de_fichier.png
-            'date_ajout' => now(),
-            'id_categorie' => $request->id_categorie
-        ]);
+        // Détacher genre si pivot existe
+        $media->genres()->detach();
 
-        return redirect('/')->with('success', 'Média ajouté avec succès !');
+        $media->delete();
+
+        return redirect()->back()->with('success', 'Média supprimé avec succès.');
     }
+
+public function store(Request $request)
+{
+    $request->validate([
+        'titre' => 'required|string|max:255',
+        'description' => 'required|string',
+        'image' => 'required|image',
+        'id_categorie' => 'required|exists:categorie,id_categorie',
+        'id_genre' => 'required|exists:genre,id_genre',
+    ]);
+
+    // Sauvegarde de l'image
+    $path = $request->file('image')->store('media', 'public');
+
+    // Création du média
+    $media = Media::create([
+        'titre' => $request->titre,
+        'description' => $request->description,
+        'lien_image' => 'storage/' . $path,
+        'id_categorie' => $request->id_categorie,
+        'date_ajout' => now(),
+    ]);
+
+    // Association du genre via la table pivot "posseder"
+    $media->genres()->attach($request->id_genre);
+
+    return redirect()->route('media.index')->with('success', 'Média ajouté avec succès.');
+}
 
     public function show($id)
 {

@@ -9,7 +9,7 @@ class Media extends Model
 {
     use HasFactory;
 
-    //protected $table = 'WL_media'; // Assure-toi que c'est bien le bon nom de la table
+    protected $table = 'media';
     protected $primaryKey = 'id_media'; // Clé primaire
     public $timestamps = false;
 
@@ -19,6 +19,16 @@ class Media extends Model
     public function avis()
     {
     return $this->hasMany(\App\Models\Avis::class, 'id_media', 'id_media');
+    }
+
+    public function genres()
+    {
+    return $this->belongsToMany(Genre::class, 'posseder', 'id_media', 'id_genre');
+    }
+
+    public function categorie()
+    {
+        return $this->belongsTo(Categorie::class, 'id_categorie');
     }
 
 }

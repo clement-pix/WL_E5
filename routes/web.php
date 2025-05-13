@@ -7,7 +7,8 @@ use App\Http\Controllers\ConnexionController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\MediaController;
-use App\Http\Controllers\AvisController;
+use App\Http\Controllers\AvisController; 
+use App\Http\Controllers\ComposerController;
 
 // Inscription et connexion
 Route::get('/inscription', [InscriptionController::class, 'formulaire']);
@@ -23,11 +24,13 @@ Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Page d'accueil avec la liste publique des médias
-Route::get('/', [MediaController::class, 'index'])->name('welcome');
+Route::get('/', [MediaController::class, 'welcome'])->name('welcome');
 
 // Création et ajout de média
+Route::get('/media', [MediaController::class, 'index'])->name('media.index');
 Route::get('/media/create', [MediaController::class, 'create'])->name('media.create');
 Route::post('/media/store', [MediaController::class, 'store'])->name('media.store');
+Route::delete('/media/{id}', [MediaController::class, 'destroy'])->name('media.destroy');
 
 // Détail d'un média
 Route::get('/media/{id}', [MediaController::class, 'show'])->name('media.show');
@@ -68,3 +71,11 @@ Route::get('/dashboard', function () {
     
     // Suppression d'un utilisateur
     Route::delete('/utilisateurs/{user}', [UtilisateursController::class, 'destroy'])->name('users.destroy');
+
+    Route::middleware(['auth'])->group(function () {
+        Route::get('/dashboard/liste-privee', [ComposerController::class, 'index'])->name('liste-privee.index');
+        Route::post('/dashboard/liste-privee', [ComposerController::class, 'store'])->name('liste-privee.store');
+        Route::delete('/dashboard/liste-privee/{id_media}', [ComposerController::class, 'destroy'])->name('liste-privee.destroy');
+    
+        Route::put('/dashboard/avis/{id_media}', [AvisController::class, 'update'])->name('avis.update');
+    });

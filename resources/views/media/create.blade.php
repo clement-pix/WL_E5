@@ -39,6 +39,16 @@
                         @endforeach
                     </select>
                 </div>
+                
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Genre :</label>
+                    @foreach($genres as $genre)
+                        <label class="inline-flex items-center mr-4">
+                            <input type="radio" name="id_genre" value="{{ $genre->id_genre }}" required class="form-radio text-indigo-600">
+                            <span class="ml-2">{{ ucfirst($genre->type) }}</span>
+                        </label>
+                    @endforeach
+                </div>
 
                 <button type="submit" class="block w-full py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700">
                     Ajouter

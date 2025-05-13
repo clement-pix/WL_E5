@@ -5,11 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WatchList</title>
     @vite(['resources/js/app.js', 'resources/css/app.css'])
+    <style>
+    a {
+        text-decoration: none !important;
+        color: inherit;
+    }
+</style>
+
     <!-- Swiper CSS -->
 <link
   rel="stylesheet"
   href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css"
 />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
 </head>
 
@@ -21,20 +29,20 @@
         <h1 class="text-2xl font-bold">WatchList</h1>
         <nav>
             <ul class="flex space-x-4">
-                <li><a href="/" class="hover:text-indigo-300">Accueil</a></li>
+                <li><a href="/" class="no-underline text-white hover:text-indigo-300">Accueil</a></li>
                 @guest
-                    <li><a href="/inscription" class="hover:text-indigo-300">Inscription</a></li>
-                    <li><a href="/connexion" class="hover:text-indigo-300">Connexion</a></li>
+                    <li><a href="/inscription" class="text-white hover:text-indigo-300">Inscription</a></li>
+                    <li><a href="/connexion" class="text-white hover:text-indigo-300">Connexion</a></li>
                 @endguest
 
                 @auth
                     <!-- Lien vers un dashboard selon le rôle -->
                     @if (auth()->user()->id_role == 1)
-                        <li><a href="{{ route('dashboard.superadmin') }}" class="hover:text-indigo-300">Bonjour, {{ auth()->user()->firstname }}</a></li>
+                        <li><a href="{{ route('dashboard.superadmin') }}" class="text-white hover:text-indigo-300">Bonjour, {{ auth()->user()->firstname }}</a></li>
                     @elseif (auth()->user()->id_role == 3)
-                        <li><a href="{{ route('dashboard.membreadmin') }}" class="hover:text-indigo-300">Bonjour, {{ auth()->user()->firstname }}</a></li>
+                        <li><a href="{{ route('dashboard.membreadmin') }}" class="text-white hover:text-indigo-300">Bonjour, {{ auth()->user()->firstname }}</a></li>
                     @elseif (auth()->user()->id_role == 2)
-                        <li><a href="{{ route('dashboard.membre') }}" class="hover:text-indigo-300">Bonjour, {{ auth()->user()->firstname }}</a></li>
+                        <li><a href="{{ route('dashboard.membre') }}" class="text-white hover:text-indigo-300">Bonjour, {{ auth()->user()->firstname }}</a></li>
                     @endif
                     <li>
                         <form method="POST" action="{{ route('logout') }}">

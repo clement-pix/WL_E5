@@ -9,9 +9,15 @@ class Categorie extends Model
 {
     use HasFactory;
 
-    protected $table = 'categorie'; // Vérifie le nom exact de ta table
-    protected $primaryKey = 'id_categorie'; // Définit la clé primaire
-    public $timestamps = false; // Désactive les timestamps si non présents en base
+    protected $table = 'categorie'; 
+    protected $primaryKey = 'id_categorie';
+    public $timestamps = false;
 
-    protected $fillable = ['nom']; // Ajoute les colonnes modifiables
+    protected $fillable = ['nom'];
+
+    public function medias()
+    {
+        return $this->hasMany(Media::class, 'id_categorie');
+    }
+
 }

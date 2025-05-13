@@ -12,6 +12,7 @@
     </div>
 @endif
 
+<a href="{{ route('liste-privee.index') }}" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-500"> Ma liste privée de médias</a>
     
     </div>
 @endsection

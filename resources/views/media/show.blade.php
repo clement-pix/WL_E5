@@ -14,6 +14,32 @@
         <!-- Titre du film -->
         <h1 class="text-3xl font-bold text-center mb-4">{{ $media->titre }}</h1>
 
+    <!-- Affichage des genres et categorie -->
+    @if($media->genres->isNotEmpty() || $media->categorie)
+    <div class="text-center mb-4">
+        <p class="text-sm text-gray-600">
+            @if($media->genres->isNotEmpty())
+                Genre :
+                @foreach($media->genres as $genre)
+                    <span class="inline-block bg-indigo-100 text-indigo-700 text-sm px-2 py-1 rounded-full mx-1">
+                        {{ ucfirst($genre->type) }}
+                    </span>
+                @endforeach
+            @endif
+
+            @if($media->categorie)
+                | Catégorie :
+                <span class="inline-block bg-indigo-100 text-indigo-700 text-sm px-2 py-1 rounded-full mx-1">
+                {{ ucfirst($media->categorie->type) }}
+                </span>
+            @endif
+        </p>
+    </div>
+@endif
+
+
+
+
         <!-- Image plus grande -->
         <div class="flex justify-center mb-4">
             <img src="{{ asset($media->lien_image) }}" alt="{{ $media->titre }}" class="rounded" style="height: 400px; object-fit: cover;">
