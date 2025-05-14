@@ -1,9 +1,9 @@
--- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump 
 -- version 5.2.2
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost
--- Généré le : mer. 14 mai 2025 à 10:13
+-- Hôte : localhost 
+-- Généré le : mer. 14 mai 2025 à 10:13 ok
 -- Version du serveur : 10.11.11-MariaDB-0+deb12u1
 -- Version de PHP : 8.2.28
 
@@ -449,7 +449,7 @@ ALTER TABLE `WL_Composer`
   ADD CONSTRAINT `fk_composer_user` FOREIGN KEY (`user_id`) REFERENCES `WL_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Contraintes pour la table `WL_liste`
+-- Contraintes pour la table `WL_liste` 
 --
 ALTER TABLE `WL_liste`
   ADD CONSTRAINT `WL_liste_ibfk_1` FOREIGN KEY (`id`) REFERENCES `WL_users` (`id`);
