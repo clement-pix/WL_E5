@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost
--- Généré le : lun. 17 mars 2025 à 13:56
+-- Généré le : mer. 14 mai 2025 à 10:13
 -- Version du serveur : 10.11.11-MariaDB-0+deb12u1
 -- Version de PHP : 8.2.28
 
@@ -20,28 +20,6 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `mussetc_WL`
 --
-
--- --------------------------------------------------------
-
---
--- Structure de la table `Composer`
---
-
-CREATE TABLE `Composer` (
-  `id_media` int(11) NOT NULL,
-  `id_liste` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `posseder`
---
-
-CREATE TABLE `posseder` (
-  `id_genre` int(11) NOT NULL,
-  `id_media` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -89,6 +67,18 @@ CREATE TABLE `WL_cache_locks` (
 CREATE TABLE `WL_categorie` (
   `id_categorie` int(11) NOT NULL,
   `type` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `WL_Composer`
+--
+
+CREATE TABLE `WL_Composer` (
+  `id_media` int(11) NOT NULL,
+  `id_liste` int(11) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -208,6 +198,17 @@ CREATE TABLE `WL_password_reset_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Structure de la table `WL_posseder`
+--
+
+CREATE TABLE `WL_posseder` (
+  `id_genre` int(11) NOT NULL,
+  `id_media` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Structure de la table `WL_Role`
 --
 
@@ -256,20 +257,6 @@ CREATE TABLE `WL_users` (
 --
 
 --
--- Index pour la table `Composer`
---
-ALTER TABLE `Composer`
-  ADD PRIMARY KEY (`id_media`,`id_liste`),
-  ADD KEY `Composer_WL_liste0_FK` (`id_liste`);
-
---
--- Index pour la table `posseder`
---
-ALTER TABLE `posseder`
-  ADD PRIMARY KEY (`id_genre`,`id_media`),
-  ADD KEY `posseder_WL_media0_FK` (`id_media`);
-
---
 -- Index pour la table `WL_avis`
 --
 ALTER TABLE `WL_avis`
@@ -293,6 +280,14 @@ ALTER TABLE `WL_cache_locks`
 --
 ALTER TABLE `WL_categorie`
   ADD PRIMARY KEY (`id_categorie`);
+
+--
+-- Index pour la table `WL_Composer`
+--
+ALTER TABLE `WL_Composer`
+  ADD PRIMARY KEY (`id_media`,`id_liste`),
+  ADD KEY `Composer_WL_liste0_FK` (`id_liste`),
+  ADD KEY `Composer_WL_users_FK` (`user_id`);
 
 --
 -- Index pour la table `WL_failed_jobs`
@@ -345,6 +340,13 @@ ALTER TABLE `WL_migrations`
 --
 ALTER TABLE `WL_password_reset_tokens`
   ADD PRIMARY KEY (`email`);
+
+--
+-- Index pour la table `WL_posseder`
+--
+ALTER TABLE `WL_posseder`
+  ADD PRIMARY KEY (`id_genre`,`id_media`),
+  ADD KEY `posseder_WL_media0_FK` (`id_media`);
 
 --
 -- Index pour la table `WL_Role`
@@ -432,25 +434,19 @@ ALTER TABLE `WL_users`
 --
 
 --
--- Contraintes pour la table `Composer`
---
-ALTER TABLE `Composer`
-  ADD CONSTRAINT `Composer_WL_liste0_FK` FOREIGN KEY (`id_liste`) REFERENCES `WL_liste` (`id_liste`),
-  ADD CONSTRAINT `Composer_WL_media_FK` FOREIGN KEY (`id_media`) REFERENCES `WL_media` (`id_media`);
-
---
--- Contraintes pour la table `posseder`
---
-ALTER TABLE `posseder`
-  ADD CONSTRAINT `posseder_WL_genre_FK` FOREIGN KEY (`id_genre`) REFERENCES `WL_genre` (`id_genre`),
-  ADD CONSTRAINT `posseder_WL_media0_FK` FOREIGN KEY (`id_media`) REFERENCES `WL_media` (`id_media`);
-
---
 -- Contraintes pour la table `WL_avis`
 --
 ALTER TABLE `WL_avis`
   ADD CONSTRAINT `WL_avis_WL_media_FK` FOREIGN KEY (`id_media`) REFERENCES `WL_media` (`id_media`),
   ADD CONSTRAINT `WL_avis_ibfk_1` FOREIGN KEY (`id`) REFERENCES `WL_users` (`id`);
+
+--
+-- Contraintes pour la table `WL_Composer`
+--
+ALTER TABLE `WL_Composer`
+  ADD CONSTRAINT `Composer_WL_liste0_FK` FOREIGN KEY (`id_liste`) REFERENCES `WL_liste` (`id_liste`),
+  ADD CONSTRAINT `Composer_WL_media_FK` FOREIGN KEY (`id_media`) REFERENCES `WL_media` (`id_media`),
+  ADD CONSTRAINT `fk_composer_user` FOREIGN KEY (`user_id`) REFERENCES `WL_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `WL_liste`
@@ -463,6 +459,13 @@ ALTER TABLE `WL_liste`
 --
 ALTER TABLE `WL_media`
   ADD CONSTRAINT `WL_media_WL_categorie_FK` FOREIGN KEY (`id_categorie`) REFERENCES `WL_categorie` (`id_categorie`);
+
+--
+-- Contraintes pour la table `WL_posseder`
+--
+ALTER TABLE `WL_posseder`
+  ADD CONSTRAINT `posseder_WL_genre_FK` FOREIGN KEY (`id_genre`) REFERENCES `WL_genre` (`id_genre`),
+  ADD CONSTRAINT `posseder_WL_media0_FK` FOREIGN KEY (`id_media`) REFERENCES `WL_media` (`id_media`);
 
 --
 -- Contraintes pour la table `WL_users`
