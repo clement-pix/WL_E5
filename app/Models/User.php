@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-//use Illuminate\Contracts\Auth\MustVerifyEmail;  // Ajouté
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -12,60 +11,53 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
-     * Le nom de la table dans la base de données.
-     *
-     * @var string
-     */
-    //protected $table = 'WL_users';
-
-    /**
-     * La clé primaire de la table.
+     * Clé primaire utilisée dans cette table.
      *
      * @var string
      */
     protected $primaryKey = 'id';
 
     /**
-     * Les attributs qui peuvent être affectés en masse.
+     * Attributs pouvant être remplis en masse (via formulaire, factory, etc.).
      *
      * @var array
      */
     protected $fillable = [
-        'name',
-        'firstname',
-        'email',
-        'email_verified_at',
-        'password',
-        'remember_token',
-        'pseudo',
-        'id_role',
+        'name',              // Nom de famille
+        'firstname',         // Prénom
+        'email',             // Adresse email
+        'email_verified_at', // Timestamp de vérification email
+        'password',          // Mot de passe (crypté)
+        'remember_token',    // Token de session
+        'pseudo',            // Pseudonyme
+        'id_role',           // Rôle de l'utilisateur (1=admin, 2=membre, etc.)
     ];
 
     /**
-     * Les attributs à masquer lors de la sérialisation.
+     * Attributs masqués lors de la sérialisation (ex : JSON ou API).
      *
      * @var array
      */
     protected $hidden = [
-        'password',
-        'remember_token',
+        'password',         // Masque le mot de passe
+        'remember_token',   // Masque le token
     ];
 
     /**
-     * Les attributs à caster.
+     * Transformation automatique de certains champs (cast).
      *
      * @return array
      */
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+            'email_verified_at' => 'datetime', // transforme en instance DateTime
+            'password' => 'hashed',            // hash automatiquement si modifié
         ];
     }
 
     /**
-     * Indique si les timestamps (created_at, updated_at) sont gérés automatiquement.
+     * Active les colonnes `created_at` et `updated_at` automatiquement.
      *
      * @var bool
      */
